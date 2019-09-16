@@ -4,7 +4,7 @@ RUN apk update && apk upgrade && apk add --update alpine-sdk
 # Install git
 RUN apk add --update git openssh
 # Install Firebase CLI
-RUN yarn global add firebase-tools
+RUN yarn global add firebase-tools@7.3
 # Install Bundler
 RUN gem install bundler
 # Install Jekyll
