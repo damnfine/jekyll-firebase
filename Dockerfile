@@ -1,8 +1,8 @@
-FROM starefossen/ruby-node:2-10-alpine
+FROM starefossen/ruby-node:2-10
 # update and upgrade packages
-RUN apk update && apk upgrade && apk add --update alpine-sdk
+RUN apt-get update -yq && apt-get upgrade -yq
 # Install git
-RUN apk add --update git openssh
+RUN apt-get install -yq bash git openssh-server
 # Install Firebase CLI
 RUN yarn global add firebase-tools@7.3
 # Install Bundler
@@ -11,10 +11,3 @@ RUN gem install bundler
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN bundle check || bundle install --jobs=4 --retry=3
-# Tidy up
-RUN apk del py-pip \
-    && apk del py-setuptools \
-    && rm -rf /var/cache/apk/* \
-    && rm -rf /tmp/*
-# Add CLI to PATH
-ENV PATH "$PATH:/root/.local/bin"
